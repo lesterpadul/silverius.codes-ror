@@ -50,6 +50,6 @@ test:
 #
 production:
   <<: *default
-  database: silverius_codes_ror
+  database: silverius_ag
   username: root
-  password: cde3bgt5
+  password: 
