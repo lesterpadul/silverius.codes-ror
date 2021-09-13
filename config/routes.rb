@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
+  resources :donators
+  get 'admin_users/index'
+  get 'admin_tags/index'
+  devise_for :users
   root 'home#index'
   get 'home/index'
   get 'portfolio', :to => "portfolio#index"
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get 'admin', :to => "admin#index"
+  get 'admin/blogs', :to => "admin_blog#index"
+  get 'admin/images', :to => "admin_images#index"
+  get 'admin/tags', :to => "admin_tags#index"
+  get 'admin/users', :to => "admin_users#index"
+  get 'admin/products', :to => "admin_products#index"
 end

@@ -1,0 +1,2 @@
+class ProductDonationStat < ApplicationRecord
+end

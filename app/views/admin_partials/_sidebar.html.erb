@@ -1,0 +1,65 @@
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-danger sidebar sidebar-dark accordion" id="accordionSidebar">
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-cat"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Silverius Codes Admin</div>
+    </a>
+    
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+    
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item <%= (@page_name == "blog") ? "active" : "" %>">
+        <%= link_to admin_blogs_path, :class => "nav-link #{(@page_name == "blog") ? "active" : ""}" do %>
+            <i class="fas fa-fw fa-blog"></i>
+            <span>Blogs</span></a>
+        <% end %>
+    </li>
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Addons
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item <%= (@collapse_name == "settings") ? "active" : "" %>">
+        <a 
+            class="nav-link collapsed" 
+            href="javascript:void(0)" 
+            data-toggle="collapse" 
+            data-target="#collapse_settings"
+            aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-fw fa-cogs"></i>
+            <span>Settings</span>
+        </a>
+        <div id="collapse_settings" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Login Screens:</h6>
+                <%= link_to admin_images_path, :class => "collapse-item #{(@page_name == "setting_images") ? "active" : ""}" do %>
+                    <i class="fas fa-images"></i>&nbsp;Images
+                <% end %>
+                <%= link_to admin_tags_path, :class => "collapse-item #{(@page_name == "setting_tags") ? "active" : ""}" do %>
+                    <i class="fas fa-tags"></i>&nbsp;Tags
+                <% end %>
+                <%= link_to admin_products_path, :class => "collapse-item #{(@page_name == "setting_products") ? "active" : ""}" do %>
+                    <i class="fas fa-users"></i>&nbsp;Products
+                <% end %>
+            </div>
+        </div>
+    </li>
+</ul>
+<!-- End of Sidebar -->
+
+<!-- when the page is ready -->
+
+<script>
+var current_collapse_name = "<%= @collapse_name %>";
+$(function(){
+    if (current_collapse_name.trim().length != 0) {
+        $('#collapse_' + current_collapse_name).collapse('toggle')
+    }
+});
+</script>

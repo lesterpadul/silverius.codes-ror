@@ -1,0 +1,32 @@
+<%= form_with(model: donator) do |form| %>
+  <% if donator.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(donator.errors.count, "error") %> prohibited this donator from being saved:</h2>
+
+      <ul>
+        <% donator.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.text_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :product_id %>
+    <%= form.number_field :product_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

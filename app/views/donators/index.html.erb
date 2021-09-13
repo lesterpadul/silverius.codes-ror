@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Donators</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Amount</th>
+      <th>User</th>
+      <th>Product</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @donators.each do |donator| %>
+      <tr>
+        <td><%= donator.amount %></td>
+        <td><%= donator.user_id %></td>
+        <td><%= donator.product_id %></td>
+        <td><%= link_to 'Show', donator %></td>
+        <td><%= link_to 'Edit', edit_donator_path(donator) %></td>
+        <td><%= link_to 'Destroy', donator, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Donator', new_donator_path %>

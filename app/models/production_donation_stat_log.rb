@@ -1,0 +1,2 @@
+class ProductionDonationStatLog < ApplicationRecord
+end
