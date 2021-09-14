@@ -1,56 +1,191 @@
-<!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Tables</h1>
-<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-    For more information about DataTables, please visit the <a target="_blank"
-        href="https://datatables.net">official DataTables documentation</a>.</p>
-
-<!-- DataTales Example -->
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+<div id="app_products">
+    <!-- header -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Product</h1>
+        <a 
+            href="javascript:void(0);"
+            v-on:click="toggleProductModal()" 
+            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-plus fa-sm text-white-50"></i>
+            &nbsp;Create Product
+        </a>
     </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td>Garrett Winters</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>63</td>
-                        <td>2011/07/25</td>
-                        <td>$170,750</td>
-                    </tr>
-                </tbody>
-            </table>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="card">
+                <div class="card-header">
+                    Search
+                </div>
+                <div class="card-body">
+                    <form action="">
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                name="title"
+                                value="<%= params[:title] %>"
+                                placeholder="">
+                        </div>
+                        <button
+                            type="submit"
+                            class="btn btn-sm btn-primary shadow-sm justify-content-end">
+                            <i class="fas fa-search fa-sm text-white-50"></i>
+                            &nbsp;Search!
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <div class="table-responsive">
+                <div class="d-flex justify-content-center mb-4">
+                    <%= will_paginate @products %>
+                </div>
+
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID#</th>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% @products.each do |product| %>
+                        <tr>
+                            <td>Product #<%= product.id %></td>
+                            <td><%= product.title %></td>
+                            <td><%= product.content %></td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    <button type="button" class="btn btn-secondary">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary">
+                                        <i class="fas fa-pen"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+
+                <div class="d-flex justify-content-center mb-4">
+                    <%= will_paginate @products %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- product add modal -->
+    <div 
+        class="modal fade" 
+        id="modal_product_details" 
+        tabindex="-1" 
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        data-bs-backdrop="static" 
+        data-bs-keyboard="false" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Product</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                    <div class="mb-3">
+                        <label class="form-label">Title*</label>
+                        <input 
+                            type="email" 
+                            class="form-control" 
+                            id="txtEmail" 
+                            v-model="product.title"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Content</label>
+                        <textarea 
+                            class="form-control" 
+                            id="txtContent" 
+                            v-model="product.content"
+                            rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a 
+                        v-on:click="createNewProduct(this)"
+                        class="btn btn-primary" 
+                        href="javascript:void(0);">Create</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+$(function(){
+    "use strict"
+
+    // - setup AJAX
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    
+    // - perform vue
+    var app = new Vue({
+        el: '#app_products',
+        data: {
+            product: {
+                title: "",
+                content: ""
+            }
+        },
+
+        // - mounted apge
+        mounted: function () {
+        },
+
+        // - methods for the current page
+        methods: {
+            // - toggle modal visibility
+            toggleProductModal: function(){
+                $("#modal_product_details").modal("toggle");
+            },
+            
+            // - create new todo
+            createNewProduct: function () {
+                var appElem = this;
+                
+                // - get to do items
+                $.ajax({
+                    url: "/admin/product_create",
+                    type: 'post',
+                    data: {
+                        product: this.product
+                    },
+                    beforeSend: function() {
+                    },
+                    success: function(res) {
+                    },
+                    complete: function(data) {
+                        window.location.href = "/admin/products";
+                    }
+                });
+            },
+
+            // - load elements
+            loadProducts: function ($element) {
+            }
+        }
+    });
+});
+</script>

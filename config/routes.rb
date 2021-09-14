@@ -11,5 +11,8 @@ Rails.application.routes.draw do
   get 'admin/images', :to => "admin_images#index"
   get 'admin/tags', :to => "admin_tags#index"
   get 'admin/users', :to => "admin_users#index"
+
+  # product page
   get 'admin/products', :to => "admin_products#index"
+  post "admin/product_create", :to => "admin_products#create"
 end
