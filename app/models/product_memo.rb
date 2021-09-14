@@ -1,0 +1,2 @@
+class ProductMemo < ApplicationRecord
+end

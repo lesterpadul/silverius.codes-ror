@@ -10,11 +10,11 @@ class ApplicationController < ActionController::Base
     end
 
     def after_sign_in_path_for(resource)
-        stored_location_for(resource) || admin_path
+        stored_location_for(resource) || admin_products_path
     end
 
     def after_sign_out_path_for(resource)
-        session[:previous_url] || admin_path
+        session[:previous_url] || admin_products_path
     end
 
     protected

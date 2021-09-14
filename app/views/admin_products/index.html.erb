@@ -55,7 +55,11 @@
                     <tbody>
                         <% @products.each do |product| %>
                         <tr>
-                            <td>Product #<%= product.id %></td>
+                            <td>
+                                <%= link_to "/admin/products/#{product.id}" do %>
+                                Product #<%= product.id %>
+                                <% end %>
+                            </td>
                             <td><%= product.title %></td>
                             <td><%= product.content %></td>
                             <td>
@@ -63,7 +67,11 @@
                                     <button type="button" class="btn btn-secondary">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <button type="button" class="btn btn-primary">
+                                    <button 
+                                        type="button" 
+                                        target-id="<%= product.id %>"
+                                        v-on:click="loadProducts($event)"
+                                        class="btn btn-primary">
                                         <i class="fas fa-pen"></i>
                                     </button>
                                 </div>
@@ -110,6 +118,11 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Content</label>
+                        <input 
+                            type="hidden" 
+                            class="form-control" 
+                            id="txtID" 
+                            v-model="product.id">
                         <textarea 
                             class="form-control" 
                             id="txtContent" 
@@ -145,6 +158,7 @@ $(function(){
         el: '#app_products',
         data: {
             product: {
+                id: "",
                 title: "",
                 content: ""
             }
@@ -152,10 +166,20 @@ $(function(){
 
         // - mounted apge
         mounted: function () {
+            this.handleProductModalEvents();
         },
 
         // - methods for the current page
         methods: {
+            // - handle modal events
+            handleProductModalEvents: function(){
+                let appElement = this;
+                $('#modal_product_details').on('hidden.bs.modal', function (e) {
+                    appElement.product.title = "";
+                    appElement.product.content = "";
+                });
+            },
+
             // - toggle modal visibility
             toggleProductModal: function(){
                 $("#modal_product_details").modal("toggle");
@@ -181,9 +205,37 @@ $(function(){
                     }
                 });
             },
-
+            
             // - load elements
-            loadProducts: function ($element) {
+            loadProducts: function ($evt) {
+                // - get target id
+                if (!$($evt.currentTarget).attr('target-id')) {
+                    return console.warn("element entity not found!!!!!");
+                }
+
+                // - get current
+                let targetId = $($evt.currentTarget).attr('target-id');
+                let appElement = this;
+
+                // - get to do items
+                $.ajax({
+                    url: "/admin/product_info",
+                    type: 'post',
+                    data: {
+                        product_id: targetId
+                    },
+                    beforeSend: function() {
+                    },
+                    success: function(res) {
+                    },
+                    complete: function(data) {
+                        let product = data.responseJSON.product[0];
+                        appElement.product.id = product.id;
+                        appElement.product.title = product.title;
+                        appElement.product.content = product.content;
+                        $("#modal_product_details").modal("toggle");
+                    }
+                });
             }
         }
     });

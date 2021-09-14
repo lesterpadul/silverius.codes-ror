@@ -6,5 +6,10 @@ class AdminImagesController < AdminBaseController
     end
     
     def index
+        abort 111
+    end
+
+    def show
+        abort 222
     end
 end

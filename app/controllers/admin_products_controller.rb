@@ -8,7 +8,7 @@ class AdminProductsController < AdminBaseController
     def index
         @params = params
         @products = Product
-        .where("title like ?", "%#{params[:title]}%")
+            .where("title like ?", "%#{params[:title]}%")
             .order(id: :desc)
             .paginate(
                 page: params[:page], 
@@ -16,12 +16,48 @@ class AdminProductsController < AdminBaseController
             )
     end
 
+    def detail
+        @product = Product.find(params[:id])
+    end
+
     def create
-        @product = Product.new(product_create_params)
-        @product.save
+        # if id is not present
+        if params[:product][:id].empty?
+            params[:product].delete("id")
+            @product = Product.new(product_create_params)
+
+        # else id is present
+        else 
+            @product = Product.find(params[:product][:id])
+            @product.title = params[:product][:title]
+            @product.content = params[:product][:content]
+        end
+
+        # save content
+        if @product.save
+            respond_to do |format|
+                format.json { render json: {
+                        "product" => @product
+                    }
+                }
+            end
+        else
+            respond_to do |format|
+                format.json { render json: {
+                        "product" => @product
+                    }
+                }
+            end
+        end
+    end
+
+    def info
+        @current_product = Product
+            .where("id = ?", params[:product_id])
+            .limit(1)
         respond_to do |format|
             format.json { render json: {
-                "product" => @product
+                "product" => @current_product
               }
             }
         end

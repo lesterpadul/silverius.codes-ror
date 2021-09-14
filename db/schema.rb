@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_13_112525) do
+ActiveRecord::Schema.define(version: 2021_09_14_153718) do
 
   create_table "active_storage_attachments", charset: "latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(version: 2021_09_13_112525) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "airlines", charset: "latin1", force: :cascade do |t|
+    t.string "name"
+    t.string "image_url"
+    t.string "slug"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "donators", charset: "latin1", force: :cascade do |t|
     t.float "amount"
     t.integer "user_id"
@@ -60,6 +68,26 @@ ActiveRecord::Schema.define(version: 2021_09_13_112525) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "product_images", charset: "latin1", force: :cascade do |t|
+    t.integer "admin_id"
+    t.integer "product_id"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_id"], name: "index_product_images_on_admin_id"
+    t.index ["product_id"], name: "index_product_images_on_product_id"
+  end
+
+  create_table "product_memos", charset: "latin1", force: :cascade do |t|
+    t.integer "admin_id"
+    t.integer "product_id"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_id"], name: "index_product_memos_on_admin_id"
+    t.index ["product_id"], name: "index_product_memos_on_product_id"
+  end
+
   create_table "production_donation_stat_logs", charset: "latin1", force: :cascade do |t|
     t.float "amount"
     t.integer "user_id", null: false
@@ -72,6 +100,16 @@ ActiveRecord::Schema.define(version: 2021_09_13_112525) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "title"
     t.string "content"
+  end
+
+  create_table "reviews", charset: "latin1", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.integer "score"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "airline_id"
+    t.index ["airline_id"], name: "index_reviews_on_airline_id"
   end
 
   create_table "user_donation_stats", charset: "latin1", force: :cascade do |t|

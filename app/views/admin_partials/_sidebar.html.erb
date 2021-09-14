@@ -12,7 +12,7 @@
     <hr class="sidebar-divider my-0">
     
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item <%= (@page_name == "blog") ? "active" : "" %>">
+    <li class="nav-item <%= (@page_name == "blog") ? "active" : "" %>" style="display: none;">
         <%= link_to admin_blogs_path, :class => "nav-link #{(@page_name == "blog") ? "active" : ""}" do %>
             <i class="fas fa-fw fa-blog"></i>
             <span>Blogs</span></a>

@@ -9,6 +9,7 @@ gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 gem 'mysql2', '~> 0.5'
 gem 'devise'
 gem 'will_paginate', '~> 3.1.0'
+gem 'fast_jsonapi'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
