@@ -1,5 +1,5 @@
 class Airline < ApplicationRecord
-    has_many :reviews
+    has_many :reviews, -> { order 'id DESC'} 
 
     # call this before creation is done -> this will automatically trigger the sluggify
     before_create :slugify

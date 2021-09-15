@@ -20,8 +20,14 @@ function ReviewForm(props){
                         name="description" rows="3"></textarea>
                 </div>
                 <div className="mb-3">
-                    <label className="form-control">Rate this Product:</label>
-                    [start rating here]
+                    <label className="form-control">Rate this Product: [{props.review.score} out of 5]</label>
+                    <input 
+                        type="range" 
+                        min="1"
+                        max="5"
+                        name="score"
+                        onChange={props.handleChange}
+                        className="form-range"></input>
                 </div>
                 <button type="submit" className="btn btn-primary">Submit Review!</button>
             </form>

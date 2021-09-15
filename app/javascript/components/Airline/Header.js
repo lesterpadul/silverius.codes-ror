@@ -17,7 +17,7 @@ const Header = function(props){
                         <div className={`${avgScore >= 5 ? "bi-star-fill" : ""}`}></div>
                     </div>
                     <div>{ header.avg_score || 0 } out of 5</div>
-                    <div>Total reviews: {props.reviews.data.length}</div>
+                    <div>Total reviews: {props.reviews.length}</div>
                 </div>
             </div>
         </div>
