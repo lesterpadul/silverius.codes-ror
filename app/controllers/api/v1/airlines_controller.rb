@@ -1,7 +1,7 @@
 class Api::V1::AirlinesController < ApplicationController
     protect_from_forgery with: :null_session
     def index
-        airlines = Airline.all
+        airlines = Airline.all.order(:id => :desc)
         render json: AirlineSerializer.new(airlines, options).serialized_json
     end
 

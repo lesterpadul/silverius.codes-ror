@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'airlines/index'
   devise_for :users
 
   # front page
@@ -18,6 +19,10 @@ Rails.application.routes.draw do
   get 'admin_users/index'
   get 'admin_tags/index'
   
+  # airlines page
+  get '/airlines', :to => 'airlines#index'
+  get '/airlines/:slug', :to => 'airlines#show'
+
   # name space for api
   namespace :api do
     namespace :v1 do

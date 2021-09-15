@@ -1,7 +1,7 @@
 class Api::V1::ReviewsController < ApplicationController
     protect_from_forgery with: :null_session
     def index
-        reviews = Review.all
+        reviews = Review.all.order(:id => :desc)
         render json: ReviewSerializer.new(reviews).serialized_json
     end
 
