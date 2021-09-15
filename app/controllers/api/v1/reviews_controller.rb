@@ -14,7 +14,7 @@ class Api::V1::ReviewsController < ApplicationController
         review = Review.new(review_params)
 
         if review.save
-            render json: ReviewSerializer.new(review).serialize_json
+            render json: ReviewSerializer.new(review).serialized_json
         else
             render json: {error: review.errors.messages}, status: 422
         end
@@ -24,7 +24,7 @@ class Api::V1::ReviewsController < ApplicationController
         review = Review.find_by(slug: params[:id])
 
         if review.update(review_params)
-            render json: ReviewSerializer.new(review).serialize_json
+            render json: ReviewSerializer.new(review).serialized_json
         else
             render json: {error: review.errors.messages}, status: 422
         end
